@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemis SMP | Vanilla Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #a855f7;
+            --primary-dark: #7e22ce;
+            --bg: #050507;
+            --card-bg: #0f1115;
+            --border: #1f2937;
+            --text: #f9fafb;
+            --text-dim: #9ca3af;
+            --accent: #22d3ee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* --- Navigation --- */
+        nav {
+            padding: 1.5rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(5, 5, 7, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-text { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+        .logo-text span { color: var(--primary); }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        /* --- Hero --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: 
+                radial-gradient(circle at 50% -20%, rgba(168, 85, 247, 0.15), transparent);
+            padding: 0 10%;
+        }
+
+        .hero h1 { 
+            font-size: clamp(3rem, 10vw, 5.5rem); 
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom, #fff 40%, #71717a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ip-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.5rem;
+            padding-left: 1.5rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 2rem;
+        }
+
+        .ip-box:hover { border-color: var(--primary); background: rgba(168, 85, 247, 0.05); }
+        .ip-box code { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--primary); }
+
+        .btn-copy {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* --- About Us --- */
+        section { padding: 8rem 10%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; font-weight: 800; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
+        .about-text p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Contact Us --- */
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .dev-badge {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .method-card {
+            padding: 2rem;
+            background: #050507;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .method-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .method-card h4 { margin-bottom: 0.5rem; color: var(--text); }
+        .method-card p { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: bold; }
+
+        .update-notice {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem 10%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-text">ARTEMIS<span>SMP</span></div>
+        <div class="nav-links">
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+            <a href="https://discord.gg/invite">Discord</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <span style="color: var(--primary); font-weight: 700; letter-spacing: 2px; margin-bottom: 1rem;">THE NEXT CHAPTER</span>
+        <h1>Vanilla. <br>Evolved.</h1>
+        <p style="color: var(--text-dim); max-width: 600px; font-size: 1.1rem;">
+            Welcome to Artemis SMP—a world where technical mastery meets a pure survival experience. No resets, no shortcuts, just Minecraft.
+        </p>
+        
+        <div class="ip-box" onclick="copyIp()">
+            <code id="ip-addr">play.artemissmp.com</code>
+            <div class="btn-copy" id="copy-btn">Copy IP</div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 style="text-align: left;" class="section-title">Who We Are</h2>
+                <h3>A Community of Creators</h3>
+                <p>Artemis SMP was founded on the idea that players should have a permanent home for their builds. We don't believe in seasonal resets that wipe away your hard work.</p>
+                <p>Whether you are a technical redstoner building massive perimeters or a creative builder crafting detailed landscapes, our server provides the hardware and the community to support your vision.</p>
+            </div>
+            <div class="stat-card" style="background: var(--card-bg); padding: 3rem; border-radius: 24px; border: 1px solid var(--border);">
+                <div style="margin-bottom: 2rem;">
+                    <h2 style="color: var(--accent); font-size: 3rem;">100%</h2>
+                    <p style="color: var(--text-dim);">Vanilla Experience</p>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <h2 style="color: var(--primary); font-size: 3rem;">24/7</h2>
+                    <p style="color: var(--text-dim);">Uptime on i9 Hardware</p>
+                </div>
+                <div>
+                    <h2 style="color: var(--accent); font-size: 3rem;">No</h2>
+                    <p style="color: var(--text-dim);">Pay-to-Win Mechanics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: #08080a;">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="dev-badge">Web Developer</div>
+            <h2>Get in touch with the website developer</h2>
+            <p style="color: var(--text-dim); max-width: 500px; margin: 1rem auto;">
+                Need an update on the website? Want to report a bug or suggest a feature? Reach out directly through the channels below.
+            </p>
+
+            <div class="contact-methods">
+                <div class="method-card">
+                    <h4>Discord</h4>
+                    <p>@shadow_warden_craft</p>
+                </div>
+                <div class="method-card">
+                    <h4>Email</h4>
+                    <p>shadow.webdeveloper@gmail.com</p>
+                </div>
+                <div class="method-card">
+                    <h4>YouTube</h4>
+                    <p>ZenVyrex</p>
+                </div>
+            </div>
+
+            <p class="update-notice">
+                *Please allow up to 24-48 hours for website update requests to be processed.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Artemis SMP. Built and Maintained by ZenVyrex.</p>
+        <p style="font-size: 0.7rem; margin-top: 1rem; opacity: 0.5;">Not an official Minecraft product. Not approved by or associated with Mojang.</p>
+    </footer>
+
+    <script>
+        function copyIp() {
+            const text = document.getElementById('ip-addr').innerText;
+            const btn = document.getElementById('copy-btn');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "Copied!";
+                btn.style.background = "#22c55e";
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "#a855f7";
+                }, 2000);
+            });
+        }
+
+        // Scroll Reveal Effect
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(30px)";
+            section.style.transition = "all 0.8s ease-out";
+            observer.observe(section);
+        });
+    </script>
+</body>
+  </html>
+  
